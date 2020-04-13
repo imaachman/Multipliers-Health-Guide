@@ -1,5 +1,9 @@
+import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:markdown/markdown.dart' as markdown;
+import 'package:multipliers/details.dart';
+import 'package:multipliers/iFrame.dart';
 import 'package:multipliers/products.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:refined_markdown/refined_markdown.dart';
@@ -22,6 +26,8 @@ class _ProductPageState extends State<ProductPage> {
     )
   );
 
+  PageController _pageController = PageController(initialPage: 0, keepPage: true);
+
   @override
   Widget build(BuildContext context) {
 
@@ -38,8 +44,23 @@ class _ProductPageState extends State<ProductPage> {
         backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(toggle == false ? "Details" : "विवरण", style: TextStyle(fontFamily: "Alatsi", fontSize: 24.0),),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.navigate_before, color: Colors.white,),
+            onPressed: () {
+              _pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.navigate_next, color: Colors.white,),
+            onPressed: () {
+              _pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+            },
+          )
+        ],
       ),
       body: PageView(
+        controller: _pageController,
         children: <Widget>[
           Hero(
             tag: "$productIndex",
@@ -49,8 +70,8 @@ class _ProductPageState extends State<ProductPage> {
                   padding: const EdgeInsets.only(bottom: 50.0),
                   child: Center(
                     child: Container(
-                      height: 500.0,
-                      width: 300.0,
+                      height: MediaQuery.of(context).size.height / 1.3,
+                      width: MediaQuery.of(context).size.width / 1.3,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [Colors.pink[100], Colors.white],
@@ -90,12 +111,12 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ),
           Positioned(
-            bottom: 30.0,
-            right: 0.0,
+            bottom: MediaQuery.of(context).size.height / 15,
+            right: MediaQuery.of(context).size.width / 15,
             child: Draggable(
               feedback: Container(
-                height: 170.0,
-                width: 170.0,
+                height: MediaQuery.of(context).size.width / 20,
+                width: MediaQuery.of(context).size.width / 20,
                 child: Image(image: AssetImage("assets/images/" + productList[productIndex] + ".png"),),
               ),
               child: Container(
@@ -110,44 +131,84 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
 
-           Scaffold(
-             backgroundColor: Colors.black,
-             body: Center(
-               child: Column(
-                 children: <Widget>[
-                   YoutubePlayer(
-                     controller: _controller,
-                     showVideoProgressIndicator: true,
-                     progressIndicatorColor: Colors.red,
+          Scaffold(
+            backgroundColor: Colors.black,
+            body: Column(
+              children: <Widget>[
+                Center(
+                  child: EasyWebView(
+                    src: Uri.dataFromString("""<html><body><iframe src="https://www.youtube.com/embed/" + "${YoutubePlayer.convertUrlToId("${toggle == false ? _videos[productList[productIndex]][0] : _videos[productList[productIndex]][1]}")}"> </iframe></body></html>""").toString(),
+                    height: 360.0,
+                    width: 640.0,
+                    isHtml: true,
+                  ),
+                ),
+                
+                Divider(
+                  height: 50.0,
+                  color: Colors.white,
+                  thickness: 1.0,
+                  indent: MediaQuery.of(context).size.width / 10,
+                  endIndent: MediaQuery.of(context).size.width / 10,
+                ),
+
+                FutureBuilder(
+                  future: rootBundle.loadString("assets/docs/" + productList[productIndex] + "${toggle == false ? " ENGLISH" : " HINDI"}" + ".md"),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    return snapshot.hasData
+                    ? EasyWebView(
+                      src: markdown.markdownToHtml("""<font face="Roboto" color="white">""" + "${snapshot.data}" + """</font>"""),
+                      isHtml: true,
+                      widgetsTextSelectable: true,
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: 640.0,
+                    ) : CircularProgressIndicator();
+                  },
+                )
+              ],
+            ),
+          )
+
+// For Android!
+
+          //  Scaffold(
+          //    backgroundColor: Colors.black,
+          //    body: Center(
+          //      child: Column(
+          //        children: <Widget>[
+          //          YoutubePlayer(
+          //            controller: _controller,
+          //            showVideoProgressIndicator: true,
+          //            progressIndicatorColor: Colors.red,
                      
-                   ),
+          //          ),
 
-                   Divider(height: 30.0, thickness: 1.0,),
+          //          Divider(height: 30.0, thickness: 1.0,),
 
-                   Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                      child: FutureBuilder(
-                         future: rootBundle.loadString("assets/docs/" + productList[productIndex] + "${toggle == false ? " ENGLISH" : " HINDI"}" + ".md"),
-                         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                           return snapshot.hasData ? RefinedMarkdown(text: snapshot.data, css: baseCSS,) : Center(child: CircularProgressIndicator(),);
-                         },
-                       ),
-                    ),
-                   )
+          //          Flexible(
+          //           child: Padding(
+          //             padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+          //             child: FutureBuilder(
+          //                future: rootBundle.loadString("assets/docs/" + productList[productIndex] + "${toggle == false ? " ENGLISH" : " HINDI"}" + ".md"),
+          //                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          //                  return snapshot.hasData ? RefinedMarkdown(text: snapshot.data, css: baseCSS,) : Center(child: CircularProgressIndicator(),);
+          //                },
+          //              ),
+          //           ),
+          //          )
 
-                  //  Flexible(
-                  //   child: FutureBuilder(
-                  //      future: rootBundle.loadString("assets/docs/9E5 HEALTH DRINK ENGLISH.md"),
-                  //      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  //        return snapshot.hasData ? Markdown(data: snapshot.data,) : Center(child: CircularProgressIndicator(),);
-                  //      },
-                  //    ),
-                  //  )
-                 ],
-               ),
-             ),
-           )
+          //         //  Flexible(
+          //         //   child: FutureBuilder(
+          //         //      future: rootBundle.loadString("assets/docs/9E5 HEALTH DRINK ENGLISH.md"),
+          //         //      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          //         //        return snapshot.hasData ? Markdown(data: snapshot.data,) : Center(child: CircularProgressIndicator(),);
+          //         //      },
+          //         //    ),
+          //         //  )
+          //        ],
+          //      ),
+          //    ),
+          //  )
 
         ],
       ) 

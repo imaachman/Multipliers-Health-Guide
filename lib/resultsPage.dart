@@ -46,13 +46,11 @@ class _ResultsPageState extends State<ResultsPage> {
       body: Container(
         child: Column(
           children: <Widget>[
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.35,
-                child: Text(
-                  toggle == false ? "Some of the best products recommended by senior doctors!" : "वरिष्ठ डॉक्टरों द्वारा अनुशंसित कुछ बेहतरीन उत्पाद!",
-                  style: TextStyle(fontFamily: "Roboto", fontSize: 18.0, color: Colors.white, fontWeight: FontWeight.bold)
-                ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                toggle == false ? "Some of the best products recommended by senior doctors!" : "वरिष्ठ डॉक्टरों द्वारा अनुशंसित कुछ बेहतरीन उत्पाद!",
+                style: TextStyle(fontFamily: "Roboto", fontSize: 18.0, color: Colors.white, fontWeight: FontWeight.bold)
               ),
             ),
             Flexible(
@@ -66,53 +64,58 @@ class _ResultsPageState extends State<ResultsPage> {
                       });
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ProductPage()));
                     },
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(30.0),
-                          child: Hero(
-                            tag: '$index',
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  top: 40,
-                                  left: MediaQuery.of(context).size.width / 7.5,
-                                  child: Container(
-                                    height: 350.0,
-                                    width: 350.0,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [Colors.pinkAccent[200], Colors.pink[100]],
-                                        begin: Alignment.bottomLeft,
-                                        end: Alignment.topRight
+                    child: Center(
+                      child: Container(
+                        width: 350.0,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(30.0),
+                              child: Hero(
+                                tag: '$index',
+                                child: Stack(
+                                  children: <Widget>[
+                                    Positioned(
+                                      top: 40,
+                                      //left: MediaQuery.of(context).size.width / 7.5,
+                                      child: Container(
+                                        height: 350.0,
+                                        width: 350.0,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [Colors.pinkAccent[200], Colors.pink[100]],
+                                            begin: Alignment.bottomLeft,
+                                            end: Alignment.topRight
+                                          ),
+                                          borderRadius: BorderRadius.circular(200.0)
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(200.0)
                                     ),
-                                  ),
-                                ),
-                                Center(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                        height: 250.0,
-                                        width: 250.0,
-                                        child: Image(image: AssetImage("assets/images/" + productList[index] + ".png"),),
+                                    Center(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            height: 250.0,
+                                            width: 250.0,
+                                            child: Image(image: AssetImage("assets/images/" + productList[index] + ".png"),),
+                                          ),
+                                          Material(color: Colors.transparent, child: Text(productList[index], style: TextStyle(fontSize: 25.0, fontFamily: "Alatsi", color: Colors.white),)),
+                                        ],
                                       ),
-                                      Material(color: Colors.transparent, child: Text(productList[index], style: TextStyle(fontSize: 25.0, fontFamily: "Alatsi", color: Colors.white),)),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              )
                             ),
-                          )
+                            index == productList.length - 1
+                            ? Padding(
+                              padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
+                              child: Text("made with ❤ by team Multipliers", style: TextStyle(fontFamily: "Pacifico", fontSize: 18.0, color: Colors.white,)),
+                            )
+                            : Container()
+                          ],
                         ),
-                        index == productList.length - 1
-                        ? Padding(
-                          padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
-                          child: Text("made with ❤ by team Multipliers", style: TextStyle(fontFamily: "Pacifico", fontSize: 18.0, color: Colors.white,)),
-                        )
-                        : Container()
-                      ],
+                      ),
                     ),
                   );
                 },
