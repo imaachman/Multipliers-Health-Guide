@@ -104,10 +104,13 @@ const RESOURCES = {
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"index.html": "cd9acb8a4c178378a3a47ccf2a86b9e8",
-"/": "cd9acb8a4c178378a3a47ccf2a86b9e8",
+"icons/products_app_xx.png": "e9cf34da67d0d06b1201dcdda226db0d",
+"icons/products_app_xxx.png": "908a0adee1a2218dbc6f8921d0522a66",
+"index.html": "0158a19482c1232de4f5bb55750c34ff",
+"/": "0158a19482c1232de4f5bb55750c34ff",
 "main.dart.js": "02023152067e235c93695409536b51e1",
-"manifest.json": "ce9c6bd69cac1b9117d1f84989b8e859"
+"manifest.json": "ce9c6bd69cac1b9117d1f84989b8e859",
+"products_app_fav.png": "31634cc5d722be77515d84de81972fbe"
 };
 
 self.addEventListener('activate', function (event) {
