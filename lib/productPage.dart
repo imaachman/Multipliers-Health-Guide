@@ -136,12 +136,11 @@ class _ProductPageState extends State<ProductPage> {
             body: Column(
               children: <Widget>[
                 Center(
-                  child: EasyWebView(
-                    src: Uri.dataFromString("""<html><body><iframe src="https://www.youtube.com/embed/" + "${YoutubePlayer.convertUrlToId("${toggle == false ? _videos[productList[productIndex]][0] : _videos[productList[productIndex]][1]}")}"> </iframe></body></html>""").toString(),
-                    height: 360.0,
-                    width: 640.0,
-                    isHtml: true,
-                  ),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height / 3,
+                    width: MediaQuery.of(context).size.width,
+                    child: IframeScreen()
+                  )
                 ),
                 
                 Divider(

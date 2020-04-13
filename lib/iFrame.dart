@@ -18,7 +18,7 @@ class _IframeScreenState extends State<IframeScreen> {
 
   Widget _iframeWidget;
 
-  final IFrameElement _iframeElement = IFrameElement();
+  static IFrameElement _iframeElement = IFrameElement();
 
   @override
   void initState() {
