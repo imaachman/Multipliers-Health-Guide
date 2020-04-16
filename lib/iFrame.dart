@@ -46,11 +46,7 @@ class _IframeScreenState extends State<IframeScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: SizedBox(
-          height: 360.0,
-          width: 640.0,
-          child: _iframeWidget,
-        ),
+        child: _iframeWidget,
       );
   }
 
