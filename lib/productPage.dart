@@ -163,6 +163,7 @@ class _ProductPageState extends State<ProductPage> {
                           isHtml: true,
                           widgetsTextSelectable: true,
                           height: MediaQuery.of(context).size.height / 2,
+                          width: MediaQuery.of(context).size.width,
                         ),
                       ) : CircularProgressIndicator();
                     },
