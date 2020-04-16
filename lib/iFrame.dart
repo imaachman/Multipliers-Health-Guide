@@ -46,7 +46,11 @@ class _IframeScreenState extends State<IframeScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: _iframeWidget,
+        child: Container(
+          height: 360.0,
+          width: 640.0,
+          child: _iframeWidget,
+        ),
       );
   }
 
