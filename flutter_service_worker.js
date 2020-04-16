@@ -108,7 +108,7 @@ const RESOURCES = {
 "icons/products_app_xxx.png": "908a0adee1a2218dbc6f8921d0522a66",
 "index.html": "0158a19482c1232de4f5bb55750c34ff",
 "/": "0158a19482c1232de4f5bb55750c34ff",
-"main.dart.js": "7d13e172b0e48b9a4f4e66c74e837a66",
+"main.dart.js": "d009ba4599cfa52143c381e03df490af",
 "manifest.json": "ce9c6bd69cac1b9117d1f84989b8e859",
 "products_app_fav.png": "31634cc5d722be77515d84de81972fbe"
 };
