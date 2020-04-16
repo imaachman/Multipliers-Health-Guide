@@ -156,11 +156,15 @@ class _ProductPageState extends State<ProductPage> {
                     future: rootBundle.loadString("assets/docs/" + productList[productIndex] + "${toggle == false ? " ENGLISH" : " HINDI"}" + ".md"),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       return snapshot.hasData
-                      ? EasyWebView(
-                        src: markdown.markdownToHtml("""<font face="Roboto" color="white">""" + "${snapshot.data}" + """</font>"""),
-                        isHtml: true,
-                        widgetsTextSelectable: true,
-                        height: MediaQuery.of(context).size.height / 2,
+                      ? Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: EasyWebView(
+                          src: markdown.markdownToHtml("""<font face="Roboto" color="white">""" + "${snapshot.data}" + """</font>"""),
+                          isHtml: true,
+                          widgetsTextSelectable: true,
+                          height: MediaQuery.of(context).size.height / 2,
+                          width: 640.0,
+                        ),
                       ) : CircularProgressIndicator();
                     },
                   ),
