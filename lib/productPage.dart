@@ -135,12 +135,14 @@ class _ProductPageState extends State<ProductPage> {
             backgroundColor: Colors.black,
             body: ListView(
               children: <Widget>[
-                Center(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height / 3,
-                    width: MediaQuery.of(context).size.width,
-                    child: IframeScreen()
-                  )
+                Flexible(
+                  child: Center(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height / 3,
+                      width: MediaQuery.of(context).size.width,
+                      child: IframeScreen()
+                    )
+                  ),
                 ),
                 
                 Divider(
