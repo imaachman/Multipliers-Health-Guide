@@ -133,7 +133,7 @@ class _ProductPageState extends State<ProductPage> {
 
           Scaffold(
             backgroundColor: Colors.black,
-            body: Column(
+            body: ListView(
               children: <Widget>[
                 Center(
                   child: SizedBox(
