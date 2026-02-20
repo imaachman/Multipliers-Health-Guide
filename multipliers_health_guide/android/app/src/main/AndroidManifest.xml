@@ -2,9 +2,9 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="multipliers_health_guide"
+        android:label="Multipliers Health Guide"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/products_app">
         <activity
             android:name=".MainActivity"
             android:exported="true"
